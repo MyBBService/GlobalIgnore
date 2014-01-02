@@ -5,9 +5,9 @@ $l['globalignore_no_id'] = "Es wurde keine ID übermittelt";
 $l['globalignore_wrong_id'] = "Es wurde eine fehlerhafte ID übermittelt";
 
 $l['list'] = "Liste";
-$l['list_desc'] = "Hier siehst du alle global ignorierten";
+$l['list_desc'] = "Hier siehen Sie alle global ignorierten";
 $l['templates'] = "Fehlermeldungen";
-$l['templates_desc'] = "Hier kannst du die zufällig ausgewählten Fehlermeldungen verwalten";
+$l['templates_desc'] = "Hier können Sie die zufällig ausgewählten Fehlermeldungen verwalten";
 
 $l['username'] = "User";
 $l['liftban'] = "Aufheben";
