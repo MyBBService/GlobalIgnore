@@ -57,6 +57,107 @@ function globalignore_install()
 				`title`			varchar(50)		NOT NULL,
 				`template`		text			NOT NULL,
 	PRIMARY KEY (`id`) ) ENGINE=MyISAM {$col}");
+	
+	$error[] = array(
+		"id" => 1,
+		"title" => "SQL Error",
+		"template" => "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">
+<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" >
+<head profile=\"http://gmpg.org/xfn/11\">
+	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
+	<title>MyBB - Internal Error</title>
+	<style type=\"text/css\">
+		body { background: #efefef; color: #000; font-family: Verdana; font-size: 12px; text-align: center; line-height: 1.4; }
+		a:link { color: #026CB1; text-decoration: none;	}
+		a:visited {	color: #026CB1;	text-decoration: none; }
+		a:hover, a:active {	color: #000; text-decoration: underline; }
+		#container { width: 600px; padding: 20px; background: #fff;	border: 1px solid #e4e4e4; margin: 100px auto; text-align: left; }
+		h1 { margin: 0; background: url(/index.php?action=mybb_logo) no-repeat;	height: 82px; width: 248px; }
+		#content { border: 1px solid #B60101; background: #fff; }
+		h2 { font-size: 12px; padding: 4px; background: #B60101; color: #fff; margin: 0; }
+		.invisible { display: none; }
+		#error { padding: 6px; }
+		#footer { font-size: 11px; border-top: 1px solid #ccc; padding-top: 10px; }
+		dt { font-weight: bold; }
+	</style>
+</head>
+<body>
+	<div id=\"container\">
+		<div id=\"logo\">
+			<h1><a href=\"http://mybb.com/\" title=\"MyBulletinBoard\"><span class=\"invisible\">MyBB</span></a></h1>
+		</div>
+
+		<div id=\"content\">
+			<h2>MyBB SQL Error</h2>
+
+			<div id=\"error\">
+				<p>MyBB has experienced an internal SQL error and cannot continue.</p><dl>
+<dt>SQL Error:</dt>
+<dd>2006 - MySQL Server has gone away</dd>
+<dt>Query:</dt>
+<dd></dd>
+</dl>
+
+				<p id=\"footer\">Please contact the <a href=\"http://mybb.com\">MyBB Group</a> for support.</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>"
+	);
+
+	$error[] = array(
+		"id" => 2,
+		"title" => "PHP Error",
+		"template" => "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">
+<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" >
+<head profile=\"http://gmpg.org/xfn/11\">
+	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
+	<title>Internal Error</title>
+	<style type=\"text/css\">
+		body { background: #efefef; color: #000; font-family: Verdana; font-size: 12px; text-align: center; line-height: 1.4; }
+		a:link { color: #026CB1; text-decoration: none;	}
+		a:visited {	color: #026CB1;	text-decoration: none; }
+		a:hover, a:active {	color: #000; text-decoration: underline; }
+		#container { width: 600px; padding: 20px; background: #fff;	border: 1px solid #e4e4e4; margin: 100px auto; text-align: left; }
+		h1 { margin: 0; background: url(/newreply.php?action=mybb_logo) no-repeat;	height: 82px; width: 248px; }
+		#content { border: 1px solid #B60101; background: #fff; }
+		h2 { font-size: 12px; padding: 4px; background: #B60101; color: #fff; margin: 0; }
+		.invisible { display: none; }
+		#error { padding: 6px; }
+		#footer { font-size: 11px; border-top: 1px solid #ccc; padding-top: 10px; }
+		dt { font-weight: bold; }
+	</style>
+</head>
+<body>
+	<div id=\"container\">
+		<div id=\"logo\">
+			<h1><a href=\"http://mybb.com/\" title=\"MyBulletinBoard\"><span class=\"invisible\">MyBB</span></a></h1>
+		</div>
+
+		<div id=\"content\">
+			<h2>MyBB Internal Error</h2>
+
+			<div id=\"error\">
+				<p>MyBB has experienced an internal error and cannot continue.</p><dl>
+<dt>Error Type:</dt>
+<dd>MyBB Error (40)</dd>
+<dt>Error Message:</dt>
+<dd>An unknown error occured</dd>
+<dt>Location:</dt><dd>File: member.php<br />Line: 1022</dd>
+</dl>
+
+				<p id=\"footer\">Please contact the <a href=\"http://mybb.com\">MyBB Group</a> for support.</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>"
+	);
+	
+	foreach($error as $e) {
+		$db->insert_query("gi_templates", $e);
+	}
 }
 
 function globalignore_is_installed()
@@ -136,7 +237,7 @@ function gi_run()
 	
 	if(!$mybb->user['is_ignored'])
 	    return;
-	
+
 	$query = $db->simple_select("gi_templates", "template", "", array("order_by" => "RAND()", "limit" => 1));
 	if($db->num_rows($query) != 0) {
 		echo $db->fetch_field($query, "template");
@@ -175,7 +276,6 @@ echo "<html>
 <body>
 </body>
 </html>";
-//	header("Location: {$mybb->settings['bburl']}/member.php?action=profile&uid={$mybb->user['uid']}");
 	exit();
 }
 ?>
