@@ -43,7 +43,7 @@ function globalignore_info()
 		"version"		=> "1.0",
 		"guid" 			=> "",
 		"compatibility" => "*",
-//		"dlcid"			=> "36"
+		"dlcid"			=> "36"
 	);
 }
 
