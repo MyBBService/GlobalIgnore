@@ -195,7 +195,7 @@ if($mybb->input['action'] == "") {
 	$form = new Form("index.php?module=".MODULE."&amp;action=add", "post");
 	$form_container = new FormContainer($lang->add);
 
-	$user = $form->generate_text_box("user");
+	$user = $form->generate_text_box("user", "", array("id" => "user"));
 	$form_container->output_row($lang->user, "", $user);
 	
 	$form_container->end();
@@ -203,6 +203,15 @@ if($mybb->input['action'] == "") {
 	$buttons[] = $form->generate_submit_button($lang->add);
 	$form->output_submit_wrapper($buttons);
 	$form->end();
+	
+	//Autocomplete
+	echo '
+		<script type="text/javascript" src="../jscripts/autocomplete.js?ver=140"></script>
+		<script type="text/javascript">
+		<!--
+			new autoComplete("user", "../xmlhttp.php?action=get_users", {valueSpan: "username"});
+		// -->
+	</script>';
 }
 
 $page->output_footer();

@@ -29,6 +29,8 @@ $plugins->add_hook("editpost_do_editpost_start", "gi_run");
 $plugins->add_hook("editpost_deletepost", "gi_run");
 //Quick edit
 $plugins->add_hook("xmlhttp", "gi_ajax");
+//PN senden
+$plugins->add_hook("private_send_do_send", "gi_run");
 
 function globalignore_info()
 {
